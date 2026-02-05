@@ -28,57 +28,73 @@
   margin: 0 auto;
 }
 
-/* Process Flow Timeline - Horizontal Linear Grid */
+/* Process Flow Timeline - Linear Vertical */
 .process-flow {
   display: flex;
   flex-direction: column;
-  /* Default limit: mobile stack */
   gap: 0;
-  max-width: 1200px;
-  /* Wider for grid */
+  max-width: 800px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
 }
 
-/* Base styles for cards (Process Stage) - Mobile first */
+/* Main Vertical Line */
+.process-flow::before {
+  content: '';
+  position: absolute;
+  left: 32px;
+  /* Center of the number circle (circle width 64px / 2) */
+  top: 32px;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-border) 100%);
+  z-index: 0;
+}
+
+/* Process Stage */
 .process-stage {
   display: flex;
-  flex-direction: column;
-  /* Stack number and content on mobile? Or row? Let's keep flex-row for mobile like before? User liked the previous vertical stack */
-  /* Actually, let's make it flexible */
-  gap: 24px;
-  padding: 0 0 40px 0;
+  gap: 32px;
+  padding: 0 0 48px 0;
   position: relative;
+}
+
+.process-stage:last-child {
+  padding-bottom: 0;
+  /* No padding for last item */
 }
 
 /* Stage Number Circle */
 .stage-number {
-  width: 56px;
-  height: 56px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-  /* Active by default */
-  border: 2px solid var(--color-primary);
-  /* Active border */
+  width: 64px;
+  height: 64px;
+  background: white;
+  border: 2px solid var(--color-border);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: white;
-  /* Active text color */
+  color: var(--color-text-muted);
   flex-shrink: 0;
-  z-index: 10;
-  /* Ensure on top of content */
+  z-index: 2;
+  /* On top of the line */
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-  /* Active shadow */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  /* Subtle shadow for depth */
 }
 
-/* Optional: Different style for inactive? User asked for 3-4-5 to be colored same as 1-2. So all uniform. */
-/* We can keep process-stage-active selector but it's redundant if default is active. */
+.process-stage-active .stage-number,
+.process-stage-core .stage-number {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  border-color: var(--color-primary);
+  color: white;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
 
+/* Stage Content Card */
 .stage-content {
   flex: 1;
   background: white;
@@ -86,24 +102,38 @@
   border-radius: var(--radius-lg);
   padding: 32px;
   transition: all 0.3s ease;
-  z-index: 2;
-  /* Lower than number */
   position: relative;
+  /* Visual Connection from Number to Card */
+}
+
+/* Arrow from Number to Content */
+.stage-content::before {
+  content: '';
+  position: absolute;
+  top: 32px;
+  /* Half of number height */
+  left: -32px;
+  /* Gap distance */
+  width: 32px;
+  height: 2px;
+  background: var(--color-border);
+  z-index: -1;
 }
 
 .process-stage:hover .stage-content {
   box-shadow: var(--shadow-lg);
   border-color: rgba(99, 102, 241, 0.3);
-  transform: translateY(-4px);
+  transform: translateY(-2px);
 }
 
-.process-stage-active .stage-content {
+.process-stage-active .stage-content,
+.process-stage-core .stage-content {
   border-color: var(--color-primary);
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.03) 0%, white 100%);
 }
 
 .stage-label {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -113,26 +143,30 @@
 }
 
 .stage-content h3 {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 12px;
+  color: var(--color-text);
+  line-height: 1.2;
 }
 
 .stage-content p {
   color: var(--color-text-muted);
-  font-size: 0.9375rem;
+  font-size: 1rem;
   margin-bottom: 20px;
+  line-height: 1.6;
 }
 
 .stage-content ul {
   list-style: none;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .stage-content li {
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
   color: var(--color-text-muted);
-  padding: 4px 0 4px 16px;
+  padding: 6px 0;
+  padding-left: 20px;
   position: relative;
 }
 
@@ -141,121 +175,17 @@
   position: absolute;
   left: 0;
   color: var(--color-primary);
+  font-weight: 700;
 }
 
-/* Desktop Grid Layout (>1024px) */
-@media (min-width: 1024px) {
-  .process-flow {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    /* 3 Columns */
-    gap: 40px;
-    /* Horizontal and Vertical Gap */
-    padding: 0 20px;
-  }
-
-  /* Reset Mobile Stack styles */
-  .process-flow::before {
-    content: none;
-  }
-
-  /* Remove main vertical line */
-  .process-stage {
-    padding: 0;
-    gap: 0;
-    display: block;
-  }
-
-  /* Block layout for card+number */
-
-  /* Arrange items */
-  /* Row 1: 1, 2, 3 */
-  /* Row 2: 4, 5 centered or just grid flow? layout 4 and 5 in col 1 and 2? */
-  /* User said "3 or 4 blocks in first line". 3 fits well. 4 and 5 will naturally wrap to Row 2, cols 1 and 2. */
-
-  /* Number Positioning for Grid */
-  .stage-number {
-    position: absolute;
-    top: -28px;
-    left: 24px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .stage-content {
-    height: 100%;
-    /* Full height for alignment */
-    padding-top: 40px;
-    /* Space for number */
-  }
-
-  /* Horizontal Connectors (Lines between cards in same row) */
-  /* We use pseudo-elements on the CARD to connect to the Right */
-
-  /* Applies to items that have a neighbor to the right in the same visual row */
-  /* In 3-col grid: Item 1 connects to 2. Item 2 connects to 3. Item 3 does not connect right. */
-  /* Item 4 connects to 5. Item 5 does not connect right. */
-
-  .process-stage:nth-child(1)::after,
-  .process-stage:nth-child(2)::after,
-  .process-stage:nth-child(4)::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: -50px;
-    /* Bridge the 40px gap */
-    width: 60px;
-    /* Gap + overlap */
-    height: 2px;
-    background: linear-gradient(90deg, var(--color-primary) 0%, transparent 100%);
-    /* Fading line or solid? User liked lines. */
-    z-index: 1;
-    transform: translateY(-50%);
-  }
-
-  /* Add arrow head? User liked "lines". 1-2-3-4-5. */
-  /* Let's make it a solid line with arrow. */
-  .process-stage:nth-child(1)::after,
-  .process-stage:nth-child(2)::after,
-  .process-stage:nth-child(4)::after {
-    background: var(--color-border);
-    /* Arrow tip logic requires another element or image. Let's use simple line + char? */
-  }
-
-  /* Adding Arrow Character via separate pseudo-element */
-  .process-stage:nth-child(1)::before,
-  .process-stage:nth-child(2)::before,
-  .process-stage:nth-child(4)::before {
-    content: '→';
-    position: absolute;
-    top: 50%;
-    right: -30px;
-    font-size: 24px;
-    color: var(--color-primary);
-    z-index: 2;
-    transform: translateY(-50%);
-    background: white;
-    /* Hide line behind arrow */
-    padding: 0 5px;
-  }
-
-  /* Specific override for connector backgrounds if using arrow char */
-  .process-stage:nth-child(1)::after,
-  .process-stage:nth-child(2)::after,
-  .process-stage:nth-child(4)::after {
-    width: 50px;
-    right: -45px;
-    background: var(--color-border);
-  }
-
-}
-
-/* Cycle arrow */
+/* Cycle arrow for ICP Finder */
 .cycle-arrow {
   margin-top: 16px;
   padding-top: 16px;
   border-top: 1px dashed var(--color-border);
   font-size: 0.9rem;
   color: var(--color-primary);
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -263,9 +193,10 @@
 
 .cycle-arrow::before {
   content: '↻';
+  font-size: 1.2rem;
 }
 
-/* AMA CRM Hub - Grid Span or Separate? */
+/* AMA CRM Hub */
 .crm-hub {
   margin-top: 64px;
   background: linear-gradient(135deg, var(--color-bg-alt) 0%, white 100%);
@@ -273,77 +204,15 @@
   border-radius: var(--radius-lg);
   padding: 40px;
   text-align: center;
-  max-width: 800px;
+  max-width: 600px;
+  /* Wider for desktop */
   margin-left: auto;
   margin-right: auto;
-  grid-column: 1 / -1;
-  /* Span all cols if in grid, but it's separate DOM usually. */
-  /* Wait, crm-hub is sibling of process-flow? No, looking at HTML structure (which I should recall) */
-  /* .process-flow contains items. .crm-hub is usually outside? */
-  /* Let's check logic: Replaced .process-flow content fully earlier. */
-  /* No, I replaced .process-flow INNER content. */
-  /* The .crm-hub was part of the original HTML. */
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
 }
 
-/* If .crm-hub is INSIDE .process-flow (it was in my previous edits), I should handle it. */
-/* Previous edit placed AMA CRM at the end of the flow div? */
-/* Let's assume it IS inside. */
-@media (min-width: 1024px) {
-  .crm-hub {
-    grid-column: 1 / -1;
-    /* Span full width */
-    margin-top: 40px;
-  }
-}
-
-/* Mobile responsive (Vertical Stack) */
-@media (max-width: 1023px) {
-  .process-flow {
-    padding-left: 0;
-    max-width: 600px;
-  }
-
-  .process-flow::before {
-    content: '';
-    position: absolute;
-    left: 28px;
-    top: 28px;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-border) 100%);
-  }
-
-  .process-stage {
-    flex-direction: row;
-    /* Number left, content right */
-    gap: 20px;
-  }
-
-  .stage-number {
-    position: relative;
-    top: 0;
-    left: 0;
-    margin: 0;
-  }
-
-  .stage-content {
-    /* Remove desktop specific padding */
-    padding-top: 24px;
-  }
-
-  /* Ensure Hub is full width */
-  .crm-hub {
-    margin-top: 48px;
-  }
-}
-
-/* Clean Button styles within stages */
-.btn-sm {
-  padding: 8px 20px;
-  font-size: 0.9rem;
-}
-
-/* AMA CRM Hub */
 .crm-hub-badge {
   display: inline-block;
   background: rgba(99, 102, 241, 0.1);
@@ -385,6 +254,49 @@
   font-size: 0.875rem;
   color: var(--color-text-muted);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* Clean Button styles within stages */
+.btn-sm {
+  padding: 8px 20px;
+  font-size: 0.9rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  .process-flow {
+    padding-left: 0;
+  }
+
+  .process-flow::before {
+    left: 20px;
+    /* Adjust line position for smaller numbers */
+  }
+
+  .stage-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .process-stage {
+    gap: 16px;
+    padding-bottom: 32px;
+  }
+
+  .stage-content {
+    padding: 24px;
+  }
+
+  .stage-content::before {
+    top: 20px;
+    left: -16px;
+    width: 16px;
+  }
+
+  .stage-content h3 {
+    font-size: 1.25rem;
+  }
 }
 
 /* Product Card - Footer/Related Items (Unchanged) */

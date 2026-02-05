@@ -42,20 +42,22 @@ python -m http.server 8000
 5. Branch: main, folder: / (root)
 6. Save
 
-### Option 2: Via CLI
+### Option 2: Via CLI (Ready to use!)
+
+Git is already initialized with the initial commit. Just add remote and push:
 
 ```bash
-# Initialize git if not already
-git init
+# Navigate to the folder
+cd Dev/sales-suite-hub
 
-# Add remote
+# Add your GitHub remote (replace YOUR_USERNAME)
 git remote add origin git@github.com:YOUR_USERNAME/mymeet-sales-suite-hub.git
 
-# Push
-git add .
-git commit -m "Initial commit: Sales Suite Hub landing"
+# Push to GitHub
 git push -u origin main
 ```
+
+Then go to GitHub → Settings → Pages → Source: main branch.
 
 ### Custom Domain (optional)
 
