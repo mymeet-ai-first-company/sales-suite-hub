@@ -1,0 +1,204 @@
+/**
+ * MyMeet Sales Suite - Non-Critical CSS
+ * These styles are loaded asynchronously after page render
+ */
+
+/* Additional animations and effects */
+
+/* Smooth scroll behavior */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Focus styles for accessibility */
+*:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Button active state */
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* Card hover animations */
+.product-card {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Input focus styles */
+input[type="email"]:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  outline: none;
+}
+
+/* Checkbox custom styles */
+input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--color-primary);
+}
+
+/* Modal animation */
+.modal-overlay {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  transform: scale(0.95);
+  transition: transform 0.2s ease;
+}
+
+.modal-overlay.active .modal {
+  transform: scale(1);
+}
+
+/* Badge pulse animation for Coming Soon */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.badge-soon {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Icon hover effect */
+.product-icon {
+  transition: transform 0.2s ease;
+}
+
+.product-card:hover .product-icon {
+  transform: scale(1.1);
+}
+
+/* Footer link underline animation */
+.footer-col a {
+  position: relative;
+}
+
+.footer-col a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: white;
+  transition: width 0.2s ease;
+}
+
+.footer-col a:hover::after {
+  width: 100%;
+}
+
+/* Hero gradient animation */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Form success state */
+.form-success {
+  text-align: center;
+  padding: 2rem;
+}
+
+.form-success h4 {
+  color: var(--color-secondary);
+  margin-bottom: 0.5rem;
+}
+
+/* Loading state for form */
+.btn.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.btn.loading::after {
+  content: '...';
+  animation: dots 1s steps(4) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
+
+/* Print styles */
+@media print {
+  header, footer, .modal-overlay, .btn {
+    display: none !important;
+  }
+  
+  .hero, .products, .why {
+    break-inside: avoid;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .product-card {
+    border-width: 2px;
+  }
+  
+  .btn {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Dark mode (future-ready) */
+@media (prefers-color-scheme: dark) {
+  /* Placeholder for dark mode styles */
+  /* Can be enabled by uncommenting below */
+  /*
+  :root {
+    --color-bg: #111827;
+    --color-bg-alt: #1F2937;
+    --color-text: #F9FAFB;
+    --color-text-muted: #9CA3AF;
+    --color-border: #374151;
+  }
+  
+  .product-card {
+    background: var(--color-bg-alt);
+  }
+  
+  .badge-ready {
+    background: #065F46;
+    color: #D1FAE5;
+  }
+  
+  .badge-soon {
+    background: #92400E;
+    color: #FEF3C7;
+  }
+  */
+}
