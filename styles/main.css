@@ -81,14 +81,24 @@
 
 .stage-content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   background: white;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 32px;
   transition: all 0.3s ease;
   z-index: 2;
-  /* Lower than number */
   position: relative;
+}
+
+.stage-cta {
+  margin-top: auto;
+  min-height: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 12px;
 }
 
 .process-stage:hover .stage-content {
@@ -191,13 +201,11 @@
   /* Horizontal Connectors (Lines between cards in same row) */
   /* We use pseudo-elements on the CARD to connect to the Right */
 
-  /* Applies to items that have a neighbor to the right in the same visual row */
-  /* In 3-col grid: Item 1 connects to 2. Item 2 connects to 3. Item 3 does not connect right. */
-  /* Item 4 connects to 5. Item 5 does not connect right. */
-
+  /* Connectors: Row 1: 1→2, 2→3. Row 2: 4→5, 5→6. */
   .process-stage:nth-child(1)::after,
   .process-stage:nth-child(2)::after,
-  .process-stage:nth-child(4)::after {
+  .process-stage:nth-child(4)::after,
+  .process-stage:nth-child(5)::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -212,19 +220,17 @@
     transform: translateY(-50%);
   }
 
-  /* Add arrow head? User liked "lines". 1-2-3-4-5. */
-  /* Let's make it a solid line with arrow. */
   .process-stage:nth-child(1)::after,
   .process-stage:nth-child(2)::after,
-  .process-stage:nth-child(4)::after {
+  .process-stage:nth-child(4)::after,
+  .process-stage:nth-child(5)::after {
     background: var(--color-border);
-    /* Arrow tip logic requires another element or image. Let's use simple line + char? */
   }
 
-  /* Adding Arrow Character via separate pseudo-element */
   .process-stage:nth-child(1)::before,
   .process-stage:nth-child(2)::before,
-  .process-stage:nth-child(4)::before {
+  .process-stage:nth-child(4)::before,
+  .process-stage:nth-child(5)::before {
     content: '→';
     position: absolute;
     top: 50%;
@@ -238,10 +244,10 @@
     padding: 0 5px;
   }
 
-  /* Specific override for connector backgrounds if using arrow char */
   .process-stage:nth-child(1)::after,
   .process-stage:nth-child(2)::after,
-  .process-stage:nth-child(4)::after {
+  .process-stage:nth-child(4)::after,
+  .process-stage:nth-child(5)::after {
     width: 50px;
     right: -45px;
     background: var(--color-border);
@@ -259,41 +265,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.cycle-arrow::before {
-  content: '↻';
-}
-
-/* AMA CRM Hub - Grid Span or Separate? */
-.crm-hub {
-  margin-top: 64px;
-  background: linear-gradient(135deg, var(--color-bg-alt) 0%, white 100%);
-  border: 2px dashed var(--color-primary);
-  border-radius: var(--radius-lg);
-  padding: 40px;
-  text-align: center;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  grid-column: 1 / -1;
-  /* Span all cols if in grid, but it's separate DOM usually. */
-  /* Wait, crm-hub is sibling of process-flow? No, looking at HTML structure (which I should recall) */
-  /* .process-flow contains items. .crm-hub is usually outside? */
-  /* Let's check logic: Replaced .process-flow content fully earlier. */
-  /* No, I replaced .process-flow INNER content. */
-  /* The .crm-hub was part of the original HTML. */
-}
-
-/* If .crm-hub is INSIDE .process-flow (it was in my previous edits), I should handle it. */
-/* Previous edit placed AMA CRM at the end of the flow div? */
-/* Let's assume it IS inside. */
-@media (min-width: 1024px) {
-  .crm-hub {
-    grid-column: 1 / -1;
-    /* Span full width */
-    margin-top: 40px;
-  }
 }
 
 /* Mobile responsive (Vertical Stack) */
@@ -329,11 +300,6 @@
   .stage-content {
     /* Remove desktop specific padding */
     padding-top: 24px;
-  }
-
-  /* Ensure Hub is full width */
-  .crm-hub {
-    margin-top: 48px;
   }
 }
 
