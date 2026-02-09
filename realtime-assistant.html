@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+
+  <!-- Primary Meta Tags -->
+  <title>Realtime Assistant — AI-подсказки для продавцов во время звонка | Mymeet.ai</title>
+  <meta name="description" content="AI-ассистент подсказывает менеджерам по продажам во время звонка: детектирует возражения, рекомендует вопросы по MEDDICC, автоматически пишет саммари и next steps в CRM.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="canonical" href="https://sales.mymeet.ai/realtime-assistant">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Realtime Assistant — AI-подсказки во время звонка с клиентом">
+  <meta property="og:description" content="Детекция возражений, подсказки по MEDDICC/SPICED, автоматический follow-up в CRM. Для B2B sales-команд.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sales.mymeet.ai/realtime-assistant">
+  <meta property="og:locale" content="ru_RU">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Realtime Assistant — AI-подсказки во время звонка">
+  <meta name="twitter:description" content="Детекция возражений, подсказки по MEDDICC, автосаммари в CRM">
+  <meta name="twitter:url" content="https://sales.mymeet.ai/realtime-assistant">
+
+  <!-- Security -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+  <!-- Critical CSS (first screen: header + hero + CTA) -->
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--color-primary:#4CA771;--color-primary-dark:#3D8F5F;--color-primary-light:#6DBF8B;--color-secondary:#0EA5E9;--color-accent:#F59E0B;--color-bg:#fff;--color-bg-alt:#F8FAFC;--color-bg-dark:#0F172A;--color-text:#0F172A;--color-text-muted:#64748B;--color-border:#E2E8F0;--shadow-sm:0 1px 2px rgba(0,0,0,.04);--shadow-md:0 4px 16px rgba(0,0,0,.06);--shadow-lg:0 12px 40px rgba(0,0,0,.08);--radius-sm:8px;--radius-md:16px;--radius-lg:24px;--radius-full:9999px}
+    html{scroll-behavior:smooth}
+    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Oxygen","Ubuntu","Cantarell","Helvetica Neue",Arial,sans-serif;line-height:1.7;color:var(--color-text);background:var(--color-bg);-webkit-font-smoothing:antialiased}
+    img{max-width:100%;height:auto;display:block}
+    .container{width:100%;max-width:1100px;margin:0 auto;padding:0 24px}
+    header{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(226,232,240,.6)}
+    .header-inner{display:flex;justify-content:space-between;align-items:center}
+    .logo{font-size:1.125rem;font-weight:700;color:var(--color-text);text-decoration:none;display:flex;align-items:center;gap:10px;letter-spacing:-.02em}
+    .logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--color-primary),var(--color-primary-dark));border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px}
+    .logo-text span{color:var(--color-text-muted);font-weight:500}
+    nav{display:flex;align-items:center;gap:24px}
+    nav a{color:var(--color-text-muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
+    nav a:hover{color:var(--color-text)}
+    .nav-cta{background:var(--color-text);color:#fff !important;padding:10px 20px;border-radius:var(--radius-full);font-weight:600}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;border-radius:var(--radius-full);font-weight:600;font-size:.9375rem;text-decoration:none;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s}
+    .btn-gradient{background:linear-gradient(135deg,var(--color-primary),var(--color-primary-dark));color:#fff}
+    .btn-gradient:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(76,167,113,.3)}
+    .btn-secondary{background:#fff;color:var(--color-text);border:1px solid var(--color-border)}
+    .btn-secondary:hover{background:var(--color-bg-alt)}
+    .hero{padding:140px 0 80px;text-align:center;background:linear-gradient(180deg,var(--color-bg-alt),var(--color-bg))}
+    .hero-badge{display:inline-block;background:rgba(76,167,113,.1);color:var(--color-primary);padding:8px 16px;border-radius:var(--radius-full);font-size:.875rem;font-weight:600;margin-bottom:24px}
+    .hero h1{font-size:clamp(2.25rem,5vw,3.25rem);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:20px}
+    .hero h1 .gradient{background:linear-gradient(135deg,var(--color-primary),var(--color-primary-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-sub{font-size:1.2rem;color:var(--color-text-muted);max-width:600px;margin:0 auto 36px;line-height:1.6}
+    .hero-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-bottom:40px}
+    .trust-signals{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;font-size:.875rem;color:var(--color-text-muted)}
+    .trust-item{display:flex;align-items:center;gap:6px}
+    .trust-check{width:18px;height:18px;background:var(--color-primary);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700}
+    @media(max-width:768px){nav{display:none}.hero{padding:120px 24px 60px}}
+  </style>
+
+  <!-- Non-critical CSS (async load) -->
+  <link rel="stylesheet" href="styles/realtime-assistant.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="styles/realtime-assistant.css"></noscript>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="Mymeet.ai Sales Suite — главная">
+        <span class="logo-icon" aria-hidden="true">M</span>
+        <span class="logo-text">Mymeet.ai <span>Realtime Assistant</span></span>
+      </a>
+      <nav aria-label="Основная навигация">
+        <a href="#features">Возможности</a>
+        <a href="#how">Как работает</a>
+        <a href="#faq">FAQ</a>
+        <a href="/">Sales Suite</a>
+        <a href="mailto:hello@mymeet.ai?subject=Realtime%20Assistant%20—%20Demo" class="nav-cta">Записаться на демо</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ════════ HERO ════════ -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-badge">AI-ассистент для B2B продаж</div>
+        <h1 id="hero-heading">AI-подсказки во время звонка —<br>чтобы <span class="gradient">закрывать сделки увереннее</span></h1>
+        <p class="hero-sub">Realtime Assistant слушает разговор с клиентом и подсказывает: как ответить на возражение, какой вопрос задать, что не забыть. После звонка — автоматический саммари и next steps в CRM.</p>
+        <div class="hero-cta">
+          <a href="mailto:hello@mymeet.ai?subject=Realtime%20Assistant%20—%20Demo" class="btn btn-gradient">Записаться на демо</a>
+          <a href="#how" class="btn btn-secondary">Как это работает</a>
+        </div>
+        <div class="trust-signals">
+          <div class="trust-item"><span class="trust-check" aria-hidden="true">✓</span><span>Подсказки в реальном времени</span></div>
+          <div class="trust-item"><span class="trust-check" aria-hidden="true">✓</span><span>Детекция возражений</span></div>
+          <div class="trust-item"><span class="trust-check" aria-hidden="true">✓</span><span>Авто-саммари в CRM</span></div>
+          <div class="trust-item"><span class="trust-check" aria-hidden="true">✓</span><span>MEDDICC / SPICED</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ Features + Mockups ════════ -->
+    <section class="section" id="features" aria-labelledby="features-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="features-heading">Две работы, которые мы делаем за тебя</h2>
+          <p>Сопровождение во время звонка и автоматический follow-up после</p>
+        </div>
+
+        <div class="mockup-section" style="margin-bottom:64px">
+          <div class="mockup-text">
+            <h3>Подсказки во время звонка</h3>
+            <p>Система слушает разговор и показывает контекстные подсказки в реальном времени: детектирует возражения клиента, напоминает про ключевые вопросы по MEDDICC или SPICED, подсвечивает сигналы покупки. Ты ведёшь разговор — ассистент подстраховывает.</p>
+            <p>Работает через Zoom, Google Meet и Teams. Подсказки видишь только ты — в плавающем окне рядом с видеозвонком.</p>
+          </div>
+          <div class="mockup-img">
+            <img src="images/ra-realtime-hints.png" alt="Интерфейс Realtime Assistant: подсказки во время звонка — детекция возражений, рекомендации по MEDDICC" width="800" height="600" loading="eager" decoding="async">
+          </div>
+        </div>
+
+        <div class="mockup-section reverse">
+          <div class="mockup-text">
+            <h3>Автоматический саммари и next steps</h3>
+            <p>Звонок закончился — за 30 секунд система выделяет ключевые моменты, пишет краткое резюме и формирует список следующих шагов. Нажимаешь «Сохранить» — и всё в CRM.</p>
+            <p>Руководитель видит реальное состояние сделки без твоих ручных отчётов: что обсудили, какие возражения были, какой следующий шаг согласовали.</p>
+          </div>
+          <div class="mockup-img">
+            <img src="images/ra-auto-summary.png" alt="Интерфейс Realtime Assistant: автоматический саммари звонка с ключевыми моментами и next steps для CRM" width="800" height="600" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ Сценарии (aha-момент) ════════ -->
+    <section class="section section-alt" aria-labelledby="scenarios-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="scenarios-heading">Как выглядит звонок с Realtime Assistant</h2>
+          <p>Два реальных сценария вместо абстрактных обещаний</p>
+        </div>
+
+        <div class="scenario">
+          <span class="scenario-label">Сценарий 1</span>
+          <h3>Discovery call с новым клиентом</h3>
+          <div class="scenario-step"><span class="time">00:05</span><span>Клиент рассказывает о задаче. Система подсказывает: «По MEDDICC ты ещё не уточнил Metrics — спроси, как они измеряют успех».</span></div>
+          <div class="scenario-step"><span class="time">12:30</span><span>Клиент говорит «нужно подумать». Система мгновенно: «Возражение — уточни причину. С похожим клиентом сработал вопрос о внутренних сроках».</span></div>
+          <div class="scenario-step"><span class="time">25:00</span><span>Звонок закончен. Через 30 секунд: резюме, ключевые моменты, следующий шаг — всё в CRM одним кликом.</span></div>
+          <div class="scenario-result">Ты не забыл ни одного ключевого вопроса, обработал возражение по шаблону, CRM обновлена без ручных отчётов.</div>
+        </div>
+
+        <div class="scenario">
+          <span class="scenario-label">Сценарий 2</span>
+          <h3>Обсуждение бюджета и условий</h3>
+          <div class="scenario-step"><span class="time">05:00</span><span>Клиент упоминает дедлайн в апреле. Система: «Сигнал — дедлайн можно использовать как рычаг для ускорения решения».</span></div>
+          <div class="scenario-step"><span class="time">15:00</span><span>Обсуждение цены. Система подсказывает: «Клиент сравнивает с конкурентом X — вот 3 ключевых отличия для ответа».</span></div>
+          <div class="scenario-step"><span class="time">30:00</span><span>Авто-саммари: бюджет обсуждён, диапазон зафиксирован, встреча с CFO назначена. Руководитель видит прогресс.</span></div>
+          <div class="scenario-result">Ты использовал сигналы клиента в реальном времени, а не вспомнил о них после звонка.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ Ценность ════════ -->
+    <section class="section" id="value" aria-labelledby="value-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="value-heading">Конкретные результаты, не обещания</h2>
+          <p>Что меняется уже в первую неделю</p>
+        </div>
+        <div class="value-grid">
+          <div class="value-card">
+            <div class="value-metric">+15–25%</div>
+            <h3>Рост конверсии в следующий шаг</h3>
+            <p>Подсказки помогают не забывать ключевые вопросы, ловить возражения и переходить к закрытию вовремя.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-metric">0 мин</div>
+            <h3>Ручных отчётов после звонка</h3>
+            <p>Система автоматически пишет саммари и формирует next steps. Руководитель видит факты, а не пересказы.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-metric">100%</div>
+            <h3>Покрытие методологии на звонках</h3>
+            <p>MEDDICC, SPICED или ваш процесс — система напоминает про каждый пункт в реальном времени.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-metric">24/7</div>
+            <h3>Коучинг без участия руководителя</h3>
+            <p>Каждый звонок — с ассистентом. Руководитель коучит на основе данных, а не подозрений.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ Узнаёшь себя? ════════ -->
+    <section class="section section-dark" aria-labelledby="recognize-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="recognize-heading">Узнаёшь себя?</h2>
+          <p>Две роли, одна задача — закрыть план и вырасти</p>
+        </div>
+        <div class="recognize-grid">
+          <div class="recognize-col">
+            <h3>Ты — менеджер по продажам</h3>
+            <div class="recognize-item"><span class="emoji">😤</span><span>На звонке импровизируешь — помнишь про MEDDICC, но забываешь половину вопросов</span></div>
+            <div class="recognize-item"><span class="emoji">😰</span><span>Клиент возражает — теряешься и предлагаешь демо вместо того, чтобы уточнить причину</span></div>
+            <div class="recognize-item"><span class="emoji">📝</span><span>После каждого звонка 10 минут пишешь в CRM — а уже опаздываешь на следующий</span></div>
+            <div class="recognize-item"><span class="emoji">😞</span><span>Руководитель спрашивает «какой бюджет у клиента?» — и ты листаешь письма</span></div>
+          </div>
+          <div class="recognize-col">
+            <h3>Ты — руководитель отдела продаж</h3>
+            <div class="recognize-item"><span class="emoji">📊</span><span>Смотришь pipeline — видишь названия, но не видишь реальное состояние сделок</span></div>
+            <div class="recognize-item"><span class="emoji">🤔</span><span>AE говорит «горячий лид» — а ты не уверен, обсуждали ли бюджет</span></div>
+            <div class="recognize-item"><span class="emoji">😟</span><span>Хочешь помогать команде — но не можешь слушать все 50 звонков в неделю</span></div>
+            <div class="recognize-item"><span class="emoji">😰</span><span>До конца квартала 3 недели, план на 60% — и непонятно, где проблема</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ Как работает ════════ -->
+    <section class="section" id="how" aria-labelledby="how-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="how-heading">Как работает Realtime Assistant</h2>
+        </div>
+        <div class="step">
+          <div class="step-num" aria-hidden="true">1</div>
+          <div>
+            <h3>Включаешь ассистента перед звонком</h3>
+            <p>Одна кнопка — система подключается к Zoom, Google Meet или Teams и начинает анализировать речь. Ты видишь плавающую панель рядом с окном звонка.</p>
+            <div class="step-features"><span class="step-tag">Zoom</span><span class="step-tag">Google Meet</span><span class="step-tag">Teams</span><span class="step-tag">Одна кнопка</span></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" aria-hidden="true">2</div>
+          <div>
+            <h3>Получаешь подсказки во время разговора</h3>
+            <p>Система детектирует возражения, ловит сигналы покупки, напоминает про пункты методологии. Подсказки конкретные — по ходу именно этого разговора, а не абстрактные советы.</p>
+            <div class="step-features"><span class="step-tag">Детекция возражений</span><span class="step-tag">MEDDICC-чеклист</span><span class="step-tag">Сигналы покупки</span><span class="step-tag">Контекстные советы</span></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" aria-hidden="true">3</div>
+          <div>
+            <h3>Получаешь готовый саммари и next steps</h3>
+            <p>Звонок закончился — за 30 секунд система выделяет ключевые моменты, пишет резюме и предлагает следующий шаг. Нажимаешь «Сохранить» — всё синхронизируется в CRM.</p>
+            <div class="step-features"><span class="step-tag">Саммари за 30 сек</span><span class="step-tag">Action items</span><span class="step-tag">Синхро с CRM</span><span class="step-tag">Видимость для менеджера</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ Точка Б ════════ -->
+    <section class="section section-alt" aria-labelledby="result-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="result-heading">Через месяц с Realtime Assistant</h2>
+        </div>
+        <div class="cards-2">
+          <div class="card">
+            <div class="card-icon">💬</div>
+            <h3>Для продавца</h3>
+            <p>Звонки идут по плану — ловишь сигналы, обрабатываешь возражения, не забываешь про методологию. Нет «зависающих» клиентов. Закрываешь на 15–25% больше сделок при том же количестве звонков. Ноль минут на отчёты.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📊</div>
+            <h3>Для руководителя</h3>
+            <p>Видишь реальное состояние каждой сделки — факты из звонков, не пересказы. Вмешиваешься вовремя. Коучишь на основе данных. На встречу с руководством идёшь с цифрами.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ FAQ ════════ -->
+    <section class="section" id="faq" aria-labelledby="faq-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="faq-heading">Частые вопросы</h2>
+        </div>
+        <div class="barrier"><div class="barrier-q">Как это работает технически? Нужно что-то устанавливать?</div><p>Realtime Assistant — десктопное приложение для macOS и Windows. Устанавливается за 5 минут, подключается к Zoom, Meet или Teams. Подсказки в плавающем окне. Никаких ботов в звонке — система работает через захват аудио на твоём компьютере.</p></div>
+        <div class="barrier"><div class="barrier-q">Не хочу, чтобы система подслушивала и докладывала руководителю</div><p>Подсказки во время звонка видишь только ты. Руководитель видит результаты — стадию, следующий шаг, ключевые моменты — не стенограмму. Ты сам настраиваешь уровень видимости. Это коучинг, не надзор.</p></div>
+        <div class="barrier"><div class="barrier-q">У нас уже есть CRM. Зачем ещё один инструмент?</div><p>Realtime Assistant интегрируется с Salesforce, HubSpot, Pipedrive. CRM хранит данные, мы генерируем саммари и next steps автоматически. Не заменяем CRM — убираем ручную работу по заполнению.</p></div>
+        <div class="barrier"><div class="barrier-q">Чем отличается от Gong или Chorus?</div><p>Gong и Chorus анализируют звонки ПОСЛЕ. Realtime Assistant работает ВО ВРЕМЯ — подсказывает, пока ты ещё можешь повлиять на результат. Плюс автоматический follow-up в CRM.</p></div>
+        <div class="barrier"><div class="barrier-q">Какие методологии продаж поддерживает?</div><p>MEDDICC, MEDDPICC, SPICED, Challenger, Sandler — или ваш собственный процесс. Настраивается за час вместе с нашей командой.</p></div>
+      </div>
+    </section>
+
+    <!-- ════════ Конкуренты ════════ -->
+    <section class="section section-alt" aria-labelledby="compare-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="compare-heading">Почему не Gong, не шаблоны и не коучинг от менеджера</h2>
+        </div>
+        <div class="comp-card"><div class="vs-label">Альтернатива 1</div><h3>Gong, Chorus — пост-колл аналитика</h3><div class="comp-grid"><div class="comp-side them"><h4>Как сейчас</h4><p>Записывают и анализируют после звонка. Подсказок во время — нет. 1000 часов записей в месяц для руководителя.</p></div><div class="comp-side us"><h4>С Realtime Assistant</h4><p>Подсказки во время звонка — пока можно повлиять. Авто-саммари в CRM. Руководитель видит факты, не записи.</p></div></div></div>
+        <div class="comp-card"><div class="vs-label">Альтернатива 2</div><h3>Шаблоны MEDDICC и чек-листы</h3><div class="comp-grid"><div class="comp-side them"><h4>Как сейчас</h4><p>Статичные документы — не знают про клиента. На звонке некогда смотреть в шаблон.</p></div><div class="comp-side us"><h4>С Realtime Assistant</h4><p>Контекстные подсказки по конкретному разговору. Система сама напоминает нужный пункт в нужный момент.</p></div></div></div>
+        <div class="comp-card"><div class="vs-label">Альтернатива 3</div><h3>Коучинг от руководителя</h3><div class="comp-grid"><div class="comp-side them"><h4>Как сейчас</h4><p>Менеджер не может слушать все звонки. Совет приходит после, на 1:1.</p></div><div class="comp-side us"><h4>С Realtime Assistant</h4><p>Советы 24/7, в реальном времени. Руководитель коучит на данных, без микроменеджмента.</p></div></div></div>
+      </div>
+    </section>
+
+    <!-- ════════ Final CTA ════════ -->
+    <section class="final-cta" aria-labelledby="cta-heading">
+      <h2 id="cta-heading">Начни закрывать сделки увереннее</h2>
+      <p>Покажем, как работает Realtime Assistant на примере ваших звонков</p>
+      <a href="mailto:hello@mymeet.ai?subject=Realtime%20Assistant%20—%20Demo" class="btn">Записаться на демо</a>
+      <div class="note">hello@mymeet.ai · Ответим в течение дня</div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="/" class="logo" aria-label="Mymeet.ai"><span class="logo-icon" aria-hidden="true">M</span><span class="logo-text">Mymeet.ai</span></a><p>AI-инструменты для продаж и meetings intelligence</p></div>
+        <div class="footer-col"><h4>Продукты</h4><a href="/">Sales Suite</a><a href="https://salesprep.mymeet.ai" target="_blank" rel="noopener noreferrer">Sales Prep</a><a href="/realtime-assistant">Realtime Assistant</a><a href="mailto:hello@mymeet.ai?subject=Waitlist%3A%20ICP%20Finder">ICP Finder</a></div>
+        <div class="footer-col"><h4>Компания</h4><a href="https://mymeet.ai" target="_blank" rel="noopener noreferrer">О Mymeet.ai</a><a href="https://mymeet.ai/blog" target="_blank" rel="noopener noreferrer">Блог</a></div>
+        <div class="footer-col"><h4>Контакты</h4><a href="mailto:hello@mymeet.ai">hello@mymeet.ai</a><a href="https://t.me/mymeetai" target="_blank" rel="noopener noreferrer">Telegram</a></div>
+      </div>
+      <div class="footer-bottom"><span>&copy; 2026 Mymeet.ai. Все права защищены.</span><div><a href="https://mymeet.ai/privacy" target="_blank" rel="noopener noreferrer">Конфиденциальность</a><span aria-hidden="true"> | </span><a href="https://mymeet.ai/terms" target="_blank" rel="noopener noreferrer">Условия</a></div></div>
+    </div>
+  </footer>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","@id":"https://sales.mymeet.ai/realtime-assistant#product","name":"Realtime Assistant by Mymeet.ai","applicationCategory":"BusinessApplication","operatingSystem":"macOS, Windows","description":"AI-ассистент для B2B продаж: подсказки во время звонка, детекция возражений, автосаммари и next steps в CRM","offers":{"@type":"Offer","price":"0","priceCurrency":"RUB","description":"Демо бесплатно"},"publisher":{"@type":"Organization","@id":"https://mymeet.ai/#organization","name":"Mymeet.ai","url":"https://mymeet.ai/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Как работает Realtime Assistant технически?","acceptedAnswer":{"@type":"Answer","text":"Десктопное приложение для macOS и Windows. Подключается к Zoom, Meet или Teams. Подсказки в плавающем окне. Работает через захват аудио на компьютере."}},{"@type":"Question","name":"Чем отличается от Gong или Chorus?","acceptedAnswer":{"@type":"Answer","text":"Gong и Chorus анализируют после звонка. Realtime Assistant подсказывает во время — пока можно повлиять на результат."}},{"@type":"Question","name":"Какие методологии продаж поддерживает?","acceptedAnswer":{"@type":"Answer","text":"MEDDICC, MEDDPICC, SPICED, Challenger, Sandler или собственный процесс компании."}},{"@type":"Question","name":"Видит ли руководитель запись звонка?","acceptedAnswer":{"@type":"Answer","text":"Нет. Подсказки видит только продавец. Руководитель видит стадию сделки, следующий шаг, ключевые моменты."}},{"@type":"Question","name":"С какими CRM интегрируется?","acceptedAnswer":{"@type":"Answer","text":"Salesforce, HubSpot, Pipedrive. Саммари и next steps автоматически синхронизируются после звонка."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Mymeet.ai","item":"https://mymeet.ai/"},{"@type":"ListItem","position":2,"name":"Sales Suite","item":"https://sales.mymeet.ai/"},{"@type":"ListItem","position":3,"name":"Realtime Assistant","item":"https://sales.mymeet.ai/realtime-assistant"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"Как использовать Realtime Assistant","step":[{"@type":"HowToStep","name":"Включи ассистента","text":"Нажми кнопку перед звонком — система подключится к Zoom, Meet или Teams"},{"@type":"HowToStep","name":"Получай подсказки","text":"Во время звонка система детектирует возражения и напоминает про методологию"},{"@type":"HowToStep","name":"Сохрани итоги","text":"После звонка саммари, ключевые моменты и next steps автоматически попадут в CRM"}]}</script>
+
+</body>
+</html>
