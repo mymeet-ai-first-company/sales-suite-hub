@@ -1,35 +1,33 @@
-# MyMeet Sales Suite Hub
+# MyMeet Suite
 
-> Static landing page for GitHub Pages deployment
+> Static Suite pages served by the lightweight Node server and production container.
 
 ## Structure
 
 ```
-sales-suite-hub/
-├── index.html          # Main page with 5 product tiles
+Suite/
+├── index.html          # Main Suite page
+├── desktop.html        # Mymeet.ai Desktop landing
+├── desktop/
+│   └── manual.html     # Desktop guide at /desktop/manual
+├── server.js           # Static server with clean-URL support
 ├── styles/
 │   └── main.css        # Non-critical CSS (async load)
-├── images/             # AVIF/WebP images
-│   └── (placeholder)
-├── CNAME               # Custom domain (optional)
+├── scripts/            # Page interactions
+├── images/             # Page assets
 └── README.md           # This file
 ```
 
 ## Local Development
 
-Simply open `index.html` in a browser:
+Run the same static server used by the production container:
 
 ```bash
-# macOS
-open index.html
-
-# Linux
-xdg-open index.html
-
-# Or use a local server
-python -m http.server 8000
-# Then visit http://localhost:8000
+PORT=8080 node server.js
 ```
+
+Open `http://localhost:8080`, `http://localhost:8080/desktop`, or
+`http://localhost:8080/desktop/manual`.
 
 ## Deployment to GitHub Pages
 
