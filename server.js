@@ -58,27 +58,33 @@ async function handleApi(req, res, pathname) {
 }
 
 function resolveStaticPath(pathname) {
-  const safePath = decodeURIComponent(pathname).replace(/^\/+/, "");
+  // Treat trailing-slash clean URLs the same as their canonical form.
+  const safePath = decodeURIComponent(pathname).replace(/^\/+|\/+$/g, "");
   const basePath = safePath ? path.join(ROOT_DIR, safePath) : path.join(ROOT_DIR, "index.html");
   const normalized = path.normalize(basePath);
+  const relativePath = path.relative(ROOT_DIR, normalized);
 
-  if (!normalized.startsWith(ROOT_DIR)) {
+  if (relativePath.startsWith("..") || path.isAbsolute(relativePath)) {
     return null;
   }
 
-  if (fs.existsSync(normalized) && fs.statSync(normalized).isDirectory()) {
-    return path.join(normalized, "index.html");
-  }
-
-  if (fs.existsSync(normalized)) {
+  if (fs.existsSync(normalized) && fs.statSync(normalized).isFile()) {
     return normalized;
   }
 
+  // Prefer a clean URL's sibling HTML file before a same-named directory.
+  // This keeps /desktop mapped to desktop.html while /desktop/manual maps to
+  // desktop/manual.html.
   if (!path.extname(normalized)) {
     const htmlPath = `${normalized}.html`;
     if (fs.existsSync(htmlPath)) {
       return htmlPath;
     }
+  }
+
+  if (fs.existsSync(normalized) && fs.statSync(normalized).isDirectory()) {
+    const indexPath = path.join(normalized, "index.html");
+    return fs.existsSync(indexPath) ? indexPath : null;
   }
 
   return null;
@@ -123,6 +129,10 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => {
-  console.log(`Suite server listening on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  server.listen(PORT, () => {
+    console.log(`Suite server listening on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = { resolveStaticPath };

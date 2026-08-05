@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Гайд по Mymeet.ai Desktop</title>
+  <meta name="description" content="Как настроить Mymeet.ai Desktop, записывать встречи без бота, восстанавливать загрузку и решать частые проблемы.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://suite.mymeet.ai/desktop/manual">
+  <meta property="og:title" content="Гайд по Mymeet.ai Desktop">
+  <meta property="og:description" content="Установка, запись без бота, локальная очередь и решение частых проблем.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://suite.mymeet.ai/desktop/manual">
+  <meta property="og:locale" content="ru_RU">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --blue: #0138C7;
+      --blue-hover: #0032B1;
+      --blue-pressed: #002C9C;
+      --blue-sea: #E4ECFA;
+      --text-primary: #212833;
+      --text-secondary: #818AA3;
+      --text-tertiary: #585E6C;
+      --text-on-action: #FFFFFF;
+      --surface-page: #FFFFFF;
+      --surface-light: #FAFAFA;
+      --surface-subtle: #F7F7F8;
+      --surface-info: #F6F8FE;
+      --border-default: #EFEFEF;
+      --border-strong: #DDDEDF;
+      --success: #0D9655;
+      --danger: #CC3333;
+      --orange: #FF9E2C;
+      --content: 1120px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--surface-page); }
+    body {
+      margin: 0;
+      color: var(--text-primary);
+      background: var(--surface-page);
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+    a { color: inherit; }
+    strong { font-weight: 500; }
+    svg { display: block; flex: 0 0 auto; }
+    :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+    .container {
+      width: min(calc(100% - 48px), var(--content));
+      margin: 0 auto;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 100;
+      padding: 12px 16px;
+      color: var(--text-on-action);
+      background: var(--blue);
+      border-radius: 4px;
+      transform: translateY(-160%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--surface-page);
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .header-row {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      min-width: max-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      color: var(--text-on-action);
+      background: var(--text-primary);
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .brand-copy {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.28px;
+    }
+
+    .brand-copy span { color: var(--text-secondary); font-weight: 400; }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-link, .button {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 12px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .header-link { color: var(--text-tertiary); }
+    .header-link:hover { color: var(--text-primary); background: var(--surface-light); }
+    .header-link[aria-current="page"] { color: var(--text-primary); }
+
+    .button {
+      padding: 0 16px;
+      color: var(--text-on-action);
+      background: var(--blue);
+    }
+    .button:hover { background: var(--blue-hover); }
+    .button:active { background: var(--blue-pressed); }
+
+    .hero { padding: 64px 0; }
+    .hero-grid {
+      display: grid;
+      /* Первый экран делится поровну: объяснение слева, быстрый сценарий справа. */
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+      gap: 64px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .section-label::before {
+      width: 24px;
+      height: 1px;
+      content: "";
+      background: var(--blue);
+    }
+
+    h1 {
+      max-width: 720px;
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.64px;
+    }
+
+    .hero-lead {
+      max-width: 680px;
+      margin-top: 16px;
+      color: var(--text-tertiary);
+      font-size: 16px;
+      line-height: 1.5;
+      letter-spacing: -0.32px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+      margin-top: 24px;
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+
+    .hero-fact {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hero-fact svg { width: 16px; height: 16px; color: var(--success); }
+
+    .quick-start {
+      padding: 24px;
+      background: var(--surface-info);
+      border: 1px solid var(--blue-sea);
+      border-radius: 4px;
+    }
+
+    .quick-start-label {
+      margin-bottom: 8px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .quick-start h2 {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: -0.4px;
+    }
+
+    .quick-path {
+      display: grid;
+      gap: 12px;
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .quick-path li {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      align-items: start;
+      gap: 12px;
+      color: var(--text-tertiary);
+      font-size: 13px;
+    }
+
+    .quick-path span {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      color: var(--blue);
+      background: var(--surface-page);
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .manual-band {
+      border-top: 1px solid var(--border-default);
+      background: var(--surface-page);
+    }
+
+    .manual-layout {
+      display: grid;
+      grid-template-columns: 224px minmax(0, 1fr);
+      align-items: start;
+      gap: 64px;
+    }
+
+    .toc {
+      position: sticky;
+      top: 96px;
+      padding: 40px 0;
+    }
+
+    .toc-title {
+      margin-bottom: 16px;
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .toc-list {
+      display: grid;
+      gap: 2px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .toc-link {
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      color: var(--text-tertiary);
+      border-radius: 4px;
+      font-size: 13px;
+      text-decoration: none;
+    }
+    .toc-link:hover { color: var(--text-primary); background: var(--surface-light); }
+    .toc-link.is-active { color: var(--blue); background: var(--surface-info); }
+
+    .manual-content { min-width: 0; }
+    .chapter {
+      padding: 64px 0;
+      border-top: 1px solid var(--border-default);
+      scroll-margin-top: 88px;
+    }
+    .chapter:first-child { border-top: 0; }
+
+    .chapter-head {
+      display: grid;
+      grid-template-columns: 112px minmax(0, 1fr);
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+
+    .chapter-index {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: -0.48px;
+    }
+
+    .chapter-intro {
+      max-width: 680px;
+      margin-top: 12px;
+      color: var(--text-tertiary);
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.35;
+      letter-spacing: -0.32px;
+    }
+
+    .process-list, .step-list {
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+    }
+
+    .process-item {
+      min-height: 80px;
+      display: grid;
+      grid-template-columns: 40px 160px minmax(0, 1fr);
+      align-items: start;
+      gap: 16px;
+      padding: 16px 24px;
+    }
+    .process-item + .process-item, .step-item + .step-item { border-top: 1px solid var(--border-default); }
+
+    .number {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      color: var(--text-primary);
+      background: var(--surface-subtle);
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+    }
+    .process-item:first-child .number { color: var(--text-on-action); background: var(--blue); }
+    .process-item p, .step-item p { color: var(--text-tertiary); font-size: 13px; }
+
+    .step-item {
+      min-height: 80px;
+      display: grid;
+      grid-template-columns: 80px minmax(0, 1fr);
+      align-items: start;
+      gap: 24px;
+      padding: 16px 24px;
+    }
+    .step-label { color: var(--blue); font-size: 12px; font-weight: 500; }
+    .step-item h3 + p { margin-top: 6px; }
+
+    .grid-2, .grid-3 {
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .card {
+      min-width: 0;
+      padding: 24px;
+      background: var(--surface-page);
+      border: 1px solid var(--border-default);
+      border-radius: 4px;
+    }
+    .card-label {
+      display: block;
+      margin-bottom: 16px;
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .card h3 + p { margin-top: 8px; }
+    .card p { color: var(--text-tertiary); font-size: 13px; }
+    .card-note { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-default); }
+
+    .notice {
+      display: grid;
+      grid-template-columns: 32px minmax(0, 1fr);
+      gap: 16px;
+      margin-top: 12px;
+      padding: 24px;
+      background: var(--surface-info);
+      border: 1px solid var(--blue-sea);
+      border-radius: 4px;
+    }
+    .notice-neutral { background: var(--surface-page); border-color: var(--border-default); }
+    .notice-warning { background: var(--surface-page); border-color: var(--border-strong); }
+    .notice-icon {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      color: var(--blue);
+      background: var(--surface-page);
+      border-radius: 4px;
+    }
+    .notice-warning .notice-icon { color: var(--orange); background: var(--surface-subtle); }
+    .notice-icon svg { width: 20px; height: 20px; }
+    .notice h3 + p { margin-top: 6px; }
+    .notice p { color: var(--text-tertiary); font-size: 13px; }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+    }
+    .process-list + .table-wrap { margin-top: 12px; }
+    table { width: 100%; min-width: 680px; border-collapse: collapse; }
+    th {
+      padding: 12px 16px;
+      color: var(--text-secondary);
+      background: var(--surface-subtle);
+      font-size: 12px;
+      font-weight: 500;
+      text-align: left;
+    }
+    td { padding: 16px; color: var(--text-tertiary); font-size: 13px; vertical-align: top; }
+    th + th, td + td { border-left: 1px solid var(--border-default); }
+    tr + tr td { border-top: 1px solid var(--border-default); }
+    td strong { color: var(--text-primary); }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-primary);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .status-dot { width: 8px; height: 8px; background: var(--blue); border-radius: 9999px; }
+    .status-dot.success { background: var(--success); }
+    .status-dot.warning { background: var(--orange); }
+    .status-dot.danger { background: var(--danger); }
+
+    .faq-list { border-top: 1px solid var(--border-default); }
+    .faq-row {
+      display: grid;
+      grid-template-columns: minmax(200px, .75fr) minmax(0, 1.25fr);
+      gap: 32px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border-default);
+    }
+    .faq-question { font-weight: 500; }
+    .faq-answer { color: var(--text-tertiary); }
+
+    .site-footer { border-top: 1px solid var(--border-default); }
+    .footer-row {
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+    .footer-links { display: flex; align-items: center; gap: 24px; }
+    .footer-links a { color: var(--text-tertiary); text-decoration: none; }
+    .footer-links a:hover { color: var(--text-primary); }
+
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+      .manual-layout { min-width: 0; grid-template-columns: minmax(0, 1fr); gap: 0; }
+      .toc {
+        top: 64px;
+        z-index: 40;
+        width: 100%;
+        min-width: 0;
+        overflow: hidden;
+        padding: 8px 0;
+        background: var(--surface-page);
+        border-bottom: 1px solid var(--border-default);
+      }
+      .toc-title { display: none; }
+      .toc-list { width: 100%; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+      .toc-list::-webkit-scrollbar { display: none; }
+      .toc-link { flex: 0 0 auto; }
+      .chapter:first-child { border-top: 1px solid var(--border-default); }
+    }
+
+    @media (max-width: 720px) {
+      .container { width: min(calc(100% - 32px), var(--content)); }
+      .header-link { display: none; }
+      .hero { padding: 40px 0; }
+      .hero-meta { display: grid; gap: 8px; }
+      .chapter { padding: 40px 0; }
+      .chapter-head { grid-template-columns: 1fr; gap: 8px; margin-bottom: 24px; }
+      .process-item { grid-template-columns: 40px minmax(0, 1fr); }
+      .process-item p { grid-column: 2; }
+      .step-item { grid-template-columns: 64px minmax(0, 1fr); gap: 16px; padding: 16px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .faq-row { grid-template-columns: 1fr; gap: 8px; }
+      .footer-row { align-items: flex-start; flex-direction: column; padding: 24px 0; }
+      .footer-links { flex-wrap: wrap; gap: 16px; }
+    }
+
+    @media (max-width: 440px) {
+      .brand-copy span { display: none; }
+      .button { padding: 0 12px; }
+      h1 { font-size: 32px; }
+      .quick-start, .card, .notice { padding: 16px; }
+      .process-item { padding: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+
+    @media print {
+      .site-header, .toc, .skip-link { display: none; }
+      .container { width: 100%; }
+      .hero { padding: 32px 0; }
+      .hero-grid { grid-template-columns: 1fr; gap: 24px; }
+      .manual-layout { display: block; }
+      .chapter { padding: 32px 0; break-inside: avoid; }
+      .card, .notice, .table-wrap, .process-list, .step-list { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#manual-content">К гайду</a>
+
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="/desktop" aria-label="Mymeet.ai Desktop">
+        <span class="brand-mark" aria-hidden="true">m</span>
+        <span class="brand-copy">mymeet.ai <span>Desktop</span></span>
+      </a>
+      <nav class="header-actions" aria-label="Основная навигация">
+        <a class="header-link" href="/desktop">О Desktop</a>
+        <a class="header-link" href="/desktop/manual" aria-current="page">Гайд</a>
+        <a class="button" href="/desktop#download">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.69L6.53 8.72a.75.75 0 0 0-1.06 1.06l4 4a.75.75 0 0 0 1.06 0l4-4a.75.75 0 1 0-1.06-1.06l-2.72 2.72V2.75Z"/><path d="M3.5 12.25a.75.75 0 0 0-1.5 0v2.5A2.25 2.25 0 0 0 4.25 17h11.5A2.25 2.25 0 0 0 18 14.75v-2.5a.75.75 0 0 0-1.5 0v2.5a.75.75 0 0 1-.75.75H4.25a.75.75 0 0 1-.75-.75v-2.5Z"/></svg>
+          Скачать Mac
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div>
+          <div class="section-label">Гайд по Desktop</div>
+          <h1 id="hero-title">Как Mymeet.ai записывает встречи без бота</h1>
+          <p class="hero-lead">Приложение записывает системный звук и микрофон прямо на компьютере, сохраняет результат локально и передаёт его в выбранное рабочее пространство Mymeet.ai для расшифровки и анализа.</p>
+          <div class="hero-meta" aria-label="Ключевые особенности">
+            <span class="hero-fact"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.051l-7.5 10.5a.75.75 0 0 1-1.127.095l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.876 3.875 6.997-9.8a.75.75 0 0 1 1.05-.161Z" clip-rule="evenodd"/></svg>Без участника-бота</span>
+            <span class="hero-fact"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.051l-7.5 10.5a.75.75 0 0 1-1.127.095l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.876 3.875 6.997-9.8a.75.75 0 0 1 1.05-.161Z" clip-rule="evenodd"/></svg>Микрофон и системный звук</span>
+            <span class="hero-fact"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.051l-7.5 10.5a.75.75 0 0 1-1.127.095l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.876 3.875 6.997-9.8a.75.75 0 0 1 1.05-.161Z" clip-rule="evenodd"/></svg>Запись работает без сети</span>
+          </div>
+        </div>
+        <aside class="quick-start" aria-labelledby="quick-title">
+          <div class="quick-start-label">Главное за 30 секунд</div>
+          <h2 id="quick-title">От установки до готовой встречи</h2>
+          <ol class="quick-path">
+            <li><span>1</span><div>Войти через браузер и разрешить запись звука.</div></li>
+            <li><span>2</span><div>Выбрать рабочее пространство и начать встречу.</div></li>
+            <li><span>3</span><div>Остановить запись — файл проверится и отправится в Mymeet.ai.</div></li>
+            <li><span>4</span><div>Если сеть пропадёт, запись останется в локальной очереди.</div></li>
+          </ol>
+        </aside>
+      </div>
+    </section>
+
+    <div class="manual-band">
+      <div class="container manual-layout">
+        <nav class="toc" aria-label="Содержание гайда">
+          <div class="toc-title">Содержание</div>
+          <ol class="toc-list">
+            <li><a class="toc-link is-active" href="#flow">Как устроено</a></li>
+            <li><a class="toc-link" href="#start">Первый запуск</a></li>
+            <li><a class="toc-link" href="#modes">Режимы записи</a></li>
+            <li><a class="toc-link" href="#during">Во время встречи</a></li>
+            <li><a class="toc-link" href="#after">После остановки</a></li>
+            <li><a class="toc-link" href="#offline">Сеть и восстановление</a></li>
+            <li><a class="toc-link" href="#privacy">Данные и настройки</a></li>
+            <li><a class="toc-link" href="#help">Если что-то не работает</a></li>
+            <li><a class="toc-link" href="#faq">Короткие ответы</a></li>
+          </ol>
+        </nav>
+
+        <div class="manual-content" id="manual-content">
+          <section class="chapter" id="flow" aria-labelledby="flow-title">
+            <div class="chapter-head">
+              <div class="chapter-index">01 · Как устроено</div>
+              <div><h2 id="flow-title">Одна встреча проходит пять этапов</h2><p class="chapter-intro">Пользователь видит простой путь. Внутри приложение отдельно контролирует запись, целостность файла, загрузку и обработку.</p></div>
+            </div>
+            <div class="process-list">
+              <article class="process-item"><span class="number">01</span><h3>Находит звонок</h3><p>Распознаёт активность Zoom, Google Meet, Teams и других сервисов либо ждёт ручного запуска.</p></article>
+              <article class="process-item"><span class="number">02</span><h3>Записывает</h3><p>Получает микрофон и звук собеседников на устройстве. Интернет не обязателен.</p></article>
+              <article class="process-item"><span class="number">03</span><h3>Проверяет</h3><p>Закрывает контейнер, проверяет оба источника и публикует только целый файл.</p></article>
+              <article class="process-item"><span class="number">04</span><h3>Отправляет</h3><p>Загружает файл частями, умеет продолжить после сбоя и не создавать дубль.</p></article>
+              <article class="process-item"><span class="number">05</span><h3>Готовит отчёт</h3><p>В выбранном workspace появляются транскрипт, резюме и задачи.</p></article>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Платформа</th><th>Поддержка</th><th>Что записывается</th><th>Локальный формат</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>macOS</strong></td><td>macOS 14.4+, Apple Silicon и Intel</td><td>Core Audio: системный звук + выбранный микрофон</td><td>M4A / AAC</td></tr>
+                  <tr><td><strong>Windows</strong></td><td>Windows 10/11</td><td>Системный loopback + выбранный микрофон</td><td>WebM / Opus</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="chapter" id="start" aria-labelledby="start-title">
+            <div class="chapter-head">
+              <div class="chapter-index">02 · Первый запуск</div>
+              <div><h2 id="start-title">Настроить один раз</h2><p class="chapter-intro">Онбординг ведёт по шагам и не открывает записи, пока вход и обязательные разрешения не готовы.</p></div>
+            </div>
+            <div class="step-list">
+              <div class="step-item"><span class="step-label">Шаг 1</span><div><h3>Войти через браузер</h3><p>Приложение откроет Mymeet.ai в системном браузере и подключится автоматически после входа.</p></div></div>
+              <div class="step-item"><span class="step-label">Шаг 2</span><div><h3>Понять принцип</h3><p>Desktop находит звонки, записывает локально и отправляет результат в Mymeet.ai без бота.</p></div></div>
+              <div class="step-item"><span class="step-label">Шаг 3</span><div><h3>Разрешить звук</h3><p>Нужны микрофон для голоса пользователя и системный звук для голосов остальных участников.</p></div></div>
+              <div class="step-item"><span class="step-label">Шаг 4</span><div><h3>Выбрать workspace</h3><p>Если доступно несколько рабочих пространств, выбрать то, куда будут попадать новые встречи.</p></div></div>
+              <div class="step-item"><span class="step-label">Проверка</span><div><h3>Сделать тестовую запись</h3><p>Записать не меньше пяти секунд: сказать фразу самому и включить голос собеседника или видео.</p></div></div>
+            </div>
+            <div class="grid-2">
+              <article class="card"><span class="card-label">macOS</span><h3>Два системных разрешения</h3><p>Разрешить <strong>Microphone</strong> и <strong>System Audio Recording / Audio Capture</strong>. Screen Recording для audio-only записи не нужен.</p><p class="card-note">После отказа открыть System Settings → Privacy &amp; Security и перезапустить приложение.</p></article>
+              <article class="card"><span class="card-label">Windows</span><h3>Доступ к микрофону</h3><p>В Settings → Privacy &amp; security → Microphone разрешить микрофон и доступ для desktop apps.</p><p class="card-note">Если изменилось аудиоустройство, безопаснее сделать новую тестовую запись.</p></article>
+            </div>
+          </section>
+
+          <section class="chapter" id="modes" aria-labelledby="modes-title">
+            <div class="chapter-head">
+              <div class="chapter-index">03 · Режимы</div>
+              <div><h2 id="modes-title">Запускать вручную или автоматически</h2><p class="chapter-intro">Режим выбирается в Настройки → Общие настройки → Авто-запись встреч.</p></div>
+            </div>
+            <div class="grid-3">
+              <article class="card"><span class="card-label">По умолчанию</span><h3>Предлагать запись</h3><p>При подтверждённом звонке появляется карточка «Вы на встрече?». Запись начнётся только после нажатия.</p></article>
+              <article class="card"><span class="card-label">Полный автомат</span><h3>Записывать все</h3><p>Появляется короткое предупреждение «Включаем авто-запись». Можно отменить до старта.</p></article>
+              <article class="card"><span class="card-label">Только вручную</span><h3>Не записывать</h3><p>Авто-детект выключен. Начать запись можно из главного окна или меню приложения.</p></article>
+            </div>
+            <div class="notice">
+              <span class="notice-icon"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.236 4.45-1.99-1.99a.75.75 0 0 0-1.06 1.061l2.607 2.607a.75.75 0 0 0 1.137-.089l3.756-5.157Z" clip-rule="evenodd"/></svg></span>
+              <div><h3>Ручной запуск всегда доступен</h3><p>Открыть вкладку «Записи» и нажать «Начать запись» либо выбрать тот же пункт в tray/menu bar. Статус сменится на «Подготавливаем запись…», затем на «Идет запись…» только после готовности кодировщика.</p></div>
+            </div>
+            <div class="notice notice-neutral">
+              <span class="notice-icon"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm.75-12.5a.75.75 0 0 0-1.5 0V10c0 .249.123.481.329.62l3 2a.75.75 0 0 0 .832-1.248l-2.661-1.774V5.5Z" clip-rule="evenodd"/></svg></span>
+              <div><h3>Когда встреча заканчивается</h3><p>Если приложение уверенно связало запись со звонком, оно показывает «Останавливаем запись». Нажать «Продолжить», чтобы не останавливать; иначе запись завершится автоматически. Параллельный звонок не должен преждевременно остановить общую запись.</p></div>
+            </div>
+          </section>
+
+          <section class="chapter" id="during" aria-labelledby="during-title">
+            <div class="chapter-head">
+              <div class="chapter-index">04 · Во время встречи</div>
+              <div><h2 id="during-title">Что именно происходит на устройстве</h2><p class="chapter-intro">Desktop фиксирует только звук. Содержимое экрана, чат и видео не записываются.</p></div>
+            </div>
+            <div class="grid-2">
+              <article class="card"><h3>Микрофон</h3><p>Записывает голос пользователя. Выбранный источник закрепляется на время сессии, чтобы приложение не перескочило незаметно на другое устройство.</p><p class="card-note">Если микрофон пропал, системный звук может продолжить запись, но итог будет помечен как частичный.</p></article>
+              <article class="card"><h3>Системный звук</h3><p>Записывает голоса собеседников и другой звук встречи. Приложение отдельно проверяет, что кадры источника действительно доходят до кодировщика.</p><p class="card-note">Громкость сама по себе не доказывает полноту: оценивается непрерывность потока.</p></article>
+              <article class="card"><h3>Интернет</h3><p>Не нужен для захвата и сохранения файла. Нужен для входа, загрузки и получения статуса обработки.</p></article>
+              <article class="card"><h3>Сон и смена устройств</h3><p>После пробуждения и изменений аудиомаршрута приложение проверяет новые кадры. Если полноту нельзя доказать, файл остаётся локально.</p></article>
+            </div>
+            <div class="notice notice-warning">
+              <span class="notice-icon"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.886c.674 1.167-.168 2.625-1.514 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625l6.28-10.886ZM10 6.5a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-1.5 0v-3A.75.75 0 0 1 10 6.5Zm0 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd"/></svg></span>
+              <div><h3>Не закрывать приложение принудительно во время записи</h3><p>Обычная остановка даёт приложению время закрыть контейнер и проверить файл. Статус «Останавливаем запись…» может занимать несколько секунд.</p></div>
+            </div>
+          </section>
+
+          <section class="chapter" id="after" aria-labelledby="after-title">
+            <div class="chapter-head">
+              <div class="chapter-index">05 · После остановки</div>
+              <div><h2 id="after-title">Сначала проверить, затем отправить</h2><p class="chapter-intro">Факт наличия файла ещё не означает, что его можно безопасно обработать. Desktop проверяет контейнер, длительность и оба источника.</p></div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Статус в приложении</th><th>Что означает</th><th>Что делать</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="status"><span class="status-dot"></span>В очереди…</span></td><td>Файл успешно завершён и ждёт загрузки.</td><td>Обычно ничего.</td></tr>
+                  <tr><td><span class="status"><span class="status-dot"></span>Загружается</span></td><td>Файл отправляется частями; показывается процент.</td><td>Не закрывать сеть намеренно, но сбой не уничтожит файл.</td></tr>
+                  <tr><td><span class="status"><span class="status-dot"></span>Обрабатывается…</span></td><td>Backend принял файл и создаёт транскрипт и отчёт.</td><td>Можно открыть Mymeet.ai и смотреть статус.</td></tr>
+                  <tr><td><span class="status"><span class="status-dot success"></span>Готово</span></td><td>Встреча доступна в Mymeet.ai.</td><td>Открыть запись из строки.</td></tr>
+                  <tr><td><span class="status"><span class="status-dot warning"></span>Короче 2 минут</span></td><td>Валидная запись 5–119 секунд сохранена локально.</td><td>Меню ··· → «Всё равно обработать».</td></tr>
+                  <tr><td><span class="status"><span class="status-dot warning"></span>Возможно, без звука</span></td><td>Файл валиден, но акустика выглядит подозрительно.</td><td>При необходимости подтвердить обработку вручную.</td></tr>
+                  <tr><td><span class="status"><span class="status-dot danger"></span>ERROR / PARTIAL</span></td><td>Файл или один источник не прошёл проверку; автоматическая загрузка заблокирована.</td><td>Сохранить диагностику и обратиться в поддержку.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="grid-3">
+              <article class="card"><span class="card-label">120+ секунд</span><h3>Автоматически</h3><p>Полная запись без предупреждений отправляется сама.</p></article>
+              <article class="card"><span class="card-label">5–119 секунд</span><h3>По подтверждению</h3><p>Можно выбрать «Всё равно обработать».</p></article>
+              <article class="card"><span class="card-label">Меньше 5 секунд</span><h3>Только локально</h3><p>Backend не принимает запись такой длины.</p></article>
+            </div>
+            <div class="notice notice-neutral">
+              <span class="notice-icon"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.25 4A2.25 2.25 0 0 1 5.5 1.75h9A2.25 2.25 0 0 1 16.75 4v12A2.25 2.25 0 0 1 14.5 18.25h-9A2.25 2.25 0 0 1 3.25 16V4Zm4.5 3.25a.75.75 0 0 0 0 1.5h4.5a.75.75 0 0 0 0-1.5h-4.5Zm0 4a.75.75 0 0 0 0 1.5h4.5a.75.75 0 0 0 0-1.5h-4.5Z"/></svg></span>
+              <div><h3>Действия со строкой записи</h3><p>«Открыть запись» · «Всё равно обработать» · «Показать файл» · «Повторить» · «Удалить». Удаление и смена workspace блокируются, пока запись или защищённая загрузка активны.</p></div>
+            </div>
+          </section>
+
+          <section class="chapter" id="offline" aria-labelledby="offline-title">
+            <div class="chapter-head">
+              <div class="chapter-index">06 · Восстановление</div>
+              <div><h2 id="offline-title">Сбой сети не равен потере записи</h2><p class="chapter-intro">Очередь и прогресс живут на устройстве. Desktop повторяет только безопасные операции и проверяет, не создалась ли встреча на сервере до повторной отправки.</p></div>
+            </div>
+            <div class="step-list">
+              <div class="step-item"><span class="step-label">Сеть</span><div><h3>Пропала во время записи</h3><p>Запись продолжается локально. После остановки файл ждёт возможности загрузиться.</p></div></div>
+              <div class="step-item"><span class="step-label">Upload</span><div><h3>Оборвался на середине</h3><p>Приложение сохраняет подтверждённый прогресс и продолжает ту же сессию после Retry или перезапуска.</p></div></div>
+              <div class="step-item"><span class="step-label">Finalize</span><div><h3>Ответ сервера потерялся</h3><p>Desktop сначала проверяет заранее созданный идентификатор встречи и только потом решает, нужна ли новая отправка.</p></div></div>
+              <div class="step-item"><span class="step-label">Auth</span><div><h3>Сессия входа истекла</h3><p>Нужно войти снова. Локальный файл и checkpoint остаются на месте.</p></div></div>
+            </div>
+            <div class="notice">
+              <span class="notice-icon"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.42l-.312-.312h2.45a.75.75 0 0 0 0-1.5H4a.75.75 0 0 0-.75.75v4.25a.75.75 0 0 0 1.5 0v-2.47l.3.3a7 7 0 0 0 11.71-3.08.75.75 0 0 0-1.448-.358ZM4.688 8.576a5.5 5.5 0 0 1 9.201-2.42l.312.312h-2.45a.75.75 0 0 0 0 1.5H16a.75.75 0 0 0 .75-.75v-4.25a.75.75 0 0 0-1.5 0v2.47l-.3-.3A7 7 0 0 0 3.24 8.218a.75.75 0 0 0 1.448.358Z" clip-rule="evenodd"/></svg></span>
+              <div><h3>Что увидит пользователь</h3><p>«Восстанавливаем загрузку», «Загружаем заново» или кнопка «Повторить». Одна проблемная запись не должна навсегда блокировать остальные.</p></div>
+            </div>
+          </section>
+
+          <section class="chapter" id="privacy" aria-labelledby="privacy-title">
+            <div class="chapter-head">
+              <div class="chapter-index">07 · Данные</div>
+              <div><h2 id="privacy-title">Локальная запись и понятные границы</h2><p class="chapter-intro">Аудио остаётся чувствительными пользовательскими данными. Приложение не удаляет его из-за транспортной ошибки и не кладёт секрет входа в обычные настройки.</p></div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Где</th><th>Что хранится</th><th>Когда используется</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>На устройстве</strong></td><td>Аудиофайл, статус финализации, очередь и несекретные настройки.</td><td>Запись, восстановление, Retry и локальный список.</td></tr>
+                  <tr><td><strong>Keychain / DPAPI</strong></td><td>Зашифрованный секрет desktop-входа.</td><td>Авторизация API без хранения токена в settings.json.</td></tr>
+                  <tr><td><strong>Mymeet.ai</strong></td><td>Файл после локальной проверки и результат обработки.</td><td>Транскрипт, резюме, задачи и совместная работа.</td></tr>
+                  <tr><td><strong>Диагностика</strong></td><td>Категории состояния, длительности, размеры и безопасные служебные идентификаторы.</td><td>Разбор ошибок; без аудио, транскрипта, паролей, cookies и локальных путей.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="grid-2">
+              <article class="card"><h3>Хранение записей</h3><p>По умолчанию — до 30 дней и общий лимит 5 ГиБ. Автоочистка может удалить только записи, которые backend уже подтвердил как отправленные.</p></article>
+              <article class="card"><h3>Рабочее пространство</h3><p>Новая запись привязывается к выбранному workspace. Сменить его нельзя во время записи или пока старая локальная очередь ещё не отправлена.</p></article>
+              <article class="card"><h3>Авто-отправка логов</h3><p>Включена по умолчанию и отключается в «Диагностика». Support ID появляется только после первой успешной доставки.</p></article>
+              <article class="card"><h3>Обновления</h3><p>Перезапуск для обновления откладывается, если идёт запись, финализация, загрузка или вход через браузер.</p></article>
+            </div>
+          </section>
+
+          <section class="chapter" id="help" aria-labelledby="help-title">
+            <div class="chapter-head">
+              <div class="chapter-index">08 · Поддержка</div>
+              <div><h2 id="help-title">Проверить по короткому сценарию</h2><p class="chapter-intro">Не удалять локальный файл и не переустанавливать приложение до сбора диагностики: это может убрать важную улику.</p></div>
+            </div>
+            <div class="faq-list">
+              <div class="faq-row"><div class="faq-question">Не начинается запись</div><div class="faq-answer">Проверить вход, микрофон и системный звук. Запустить вручную из вкладки «Записи». На macOS после изменения permissions перезапустить приложение.</div></div>
+              <div class="faq-row"><div class="faq-question">Не слышно пользователя или собеседников</div><div class="faq-answer">Проверить активный микрофон и аудиомаршрут, затем сделать новую тестовую запись с двумя источниками. Не пытаться «долить» отсутствующий источник в старый файл.</div></div>
+              <div class="faq-row"><div class="faq-question">Запись короче двух минут</div><div class="faq-answer">Если она не короче пяти секунд и прошла проверку, открыть меню ··· и выбрать «Всё равно обработать».</div></div>
+              <div class="faq-row"><div class="faq-question">Загрузка зависла или упала</div><div class="faq-answer">Проверить сеть и вход. Нажать «Повторить». Перезапуск не должен удалять файл: приложение продолжит безопасную сессию или проверит уже созданную встречу.</div></div>
+              <div class="faq-row"><div class="faq-question">ERROR / PARTIAL</div><div class="faq-answer">Настройки → Диагностика → дождаться Support ID → «Сохранить». Передать Support ID, платформу, версию приложения, примерное время и шаги воспроизведения.</div></div>
+              <div class="faq-row"><div class="faq-question">Что нельзя отправлять публично</div><div class="faq-answer">Не прикладывать аудио, токены, cookies, скриншоты с личными данными, полный путь к файлу и сырые логи в открытый тикет.</div></div>
+            </div>
+            <div class="notice">
+              <span class="notice-icon"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.25 5.5A3.25 3.25 0 0 1 5.5 2.25h9A3.25 3.25 0 0 1 17.75 5.5v5A3.25 3.25 0 0 1 14.5 13.75H8.31l-3.78 3.024A.75.75 0 0 1 3.25 16.19v-2.53a3.251 3.251 0 0 1-1-2.35V5.5Z"/></svg></span>
+              <div><h3>Минимум для обращения в поддержку</h3><p><strong>Support ID</strong> · macOS/Windows и версия ОС · версия desktop · примерное время проблемы · что ожидалось и что произошло · повторяется ли после новой тестовой записи.</p></div>
+            </div>
+          </section>
+
+          <section class="chapter" id="faq" aria-labelledby="faq-title">
+            <div class="chapter-head">
+              <div class="chapter-index">Короткие ответы</div>
+              <div><h2 id="faq-title">Что обычно спрашивают клиенты</h2></div>
+            </div>
+            <div class="faq-list">
+              <div class="faq-row"><div class="faq-question">Бот входит во встречу?</div><div class="faq-answer">Нет. Запись идёт на устройстве пользователя.</div></div>
+              <div class="faq-row"><div class="faq-question">Записывается экран или видео?</div><div class="faq-answer">Нет. Desktop фиксирует аудио микрофона и системный звук.</div></div>
+              <div class="faq-row"><div class="faq-question">Нужен интернет во время звонка?</div><div class="faq-answer">Нет для записи. Да для входа, отправки файла и получения результата.</div></div>
+              <div class="faq-row"><div class="faq-question">Куда попадёт встреча?</div><div class="faq-answer">В рабочее пространство, выбранное в настройках desktop.</div></div>
+              <div class="faq-row"><div class="faq-question">Можно удалить локальный файл?</div><div class="faq-answer">Да, если он не защищён активной записью, финализацией или загрузкой. Удаление необратимо.</div></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <span>Mymeet.ai Desktop · гайд актуален на 29 июля 2026</span>
+      <div class="footer-links"><a href="/desktop">О Desktop</a><a href="mailto:hello@mymeet.ai">Поддержка</a><a href="https://suite.mymeet.ai/">Suite</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const links = [...document.querySelectorAll('.toc-link')];
+    const sections = links.map((link) => document.querySelector(link.hash)).filter(Boolean);
+    const setActive = (id) => links.forEach((link) => link.classList.toggle('is-active', link.hash === `#${id}`));
+    const updateActive = () => {
+      let current = sections[0];
+      sections.forEach((section) => {
+        if (section.getBoundingClientRect().top <= 260) current = section;
+      });
+      if (current) setActive(current.id);
+    };
+    addEventListener('scroll', updateActive, { passive: true });
+    addEventListener('hashchange', updateActive);
+    requestAnimationFrame(updateActive);
+  </script>
+</body>
+</html>
