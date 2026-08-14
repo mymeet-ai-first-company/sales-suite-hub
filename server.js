@@ -2,6 +2,10 @@ const http = require("node:http");
 const fs = require("node:fs");
 const fsp = require("node:fs/promises");
 const path = require("node:path");
+const {
+  architectureForPath,
+  createWindowsDownloadResolver
+} = require("./lib/windows-downloads");
 
 const ROOT_DIR = __dirname;
 const PORT = Number(process.env.PORT || 8080);
@@ -112,27 +116,53 @@ async function serveStatic(res, pathname) {
   fs.createReadStream(filePath).pipe(res);
 }
 
-const server = http.createServer(async (req, res) => {
-  try {
-    const { pathname } = new URL(req.url, `http://${req.headers.host || "localhost"}`);
-    const handledApi = await handleApi(req, res, pathname);
-    if (handledApi) return;
+function createSuiteServer({
+  resolveWindowsDownload = createWindowsDownloadResolver()
+} = {}) {
+  return http.createServer(async (req, res) => {
+    try {
+      const { pathname } = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+      const architecture = architectureForPath(pathname);
 
-    if (req.method !== "GET" && req.method !== "HEAD") {
-      send(res, 405, "Method not allowed", "text/plain; charset=utf-8");
-      return;
+      if (architecture && (req.method === "GET" || req.method === "HEAD")) {
+        let location;
+        try {
+          location = await resolveWindowsDownload(architecture);
+        } catch (error) {
+          sendJson(res, 503, { error: error.message || "Download service unavailable" });
+          return;
+        }
+
+        res.writeHead(302, {
+          Location: location,
+          "Cache-Control": "no-store",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "SAMEORIGIN"
+        });
+        res.end();
+        return;
+      }
+
+      const handledApi = await handleApi(req, res, pathname);
+      if (handledApi) return;
+
+      if (req.method !== "GET" && req.method !== "HEAD") {
+        send(res, 405, "Method not allowed", "text/plain; charset=utf-8");
+        return;
+      }
+
+      await serveStatic(res, pathname);
+    } catch (error) {
+      sendJson(res, 500, { error: error.message || "Server error" });
     }
-
-    await serveStatic(res, pathname);
-  } catch (error) {
-    sendJson(res, 500, { error: error.message || "Server error" });
-  }
-});
+  });
+}
 
 if (require.main === module) {
+  const server = createSuiteServer();
   server.listen(PORT, () => {
     console.log(`Suite server listening on http://localhost:${PORT}`);
   });
 }
 
-module.exports = { resolveStaticPath };
+module.exports = { createSuiteServer, resolveStaticPath };
