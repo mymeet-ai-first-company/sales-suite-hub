@@ -29,47 +29,37 @@ PORT=8080 node server.js
 Open `http://localhost:8080`, `http://localhost:8080/desktop`, or
 `http://localhost:8080/desktop/manual`.
 
-## Deployment to GitHub Pages
-
-### Option 1: Via GitHub UI
-
-1. Create a new repository on GitHub (e.g., `mymeet-sales-suite-hub`)
-2. Push this folder contents to the repo
-3. Go to Settings → Pages
-4. Source: Deploy from a branch
-5. Branch: main, folder: / (root)
-6. Save
-
-### Option 2: Via CLI (Ready to use!)
-
-Git is already initialized with the initial commit. Just add remote and push:
+Run the built-in contracts with:
 
 ```bash
-# Navigate to the folder
-cd Dev/sales-suite-hub
-
-# Add your GitHub remote (replace YOUR_USERNAME)
-git remote add origin git@github.com:YOUR_USERNAME/mymeet-sales-suite-hub.git
-
-# Push to GitHub
-git push -u origin main
+node --test
 ```
 
-Then go to GitHub → Settings → Pages → Source: main branch.
+## Desktop download routes
 
-### Custom Domain (optional)
+The Windows CTAs use stable routes served by `server.js`:
 
-1. Create a `CNAME` file with your domain:
-   ```
-   sales.mymeet.ai
-   ```
+- `/downloads/windows` and `/downloads/windows/x64` select the current x64 installer;
+- `/downloads/windows/ia32` selects the current 32-bit installer.
 
-2. Add DNS records:
-   - A record: `185.199.108.153`
-   - A record: `185.199.109.153`
-   - A record: `185.199.110.153`
-   - A record: `185.199.111.153`
-   - Or CNAME: `your-username.github.io`
+The routes read the platform-specific release manifest at
+`MyMeetAI/mymeet-desktop-releases/windows/latest.yml`, validate both architecture
+mappings, and return a non-cacheable redirect to the installer. Successful manifest
+reads are cached for five minutes and remain available as stale cache during a
+temporary upstream failure.
+
+Windows releases advance the landing page by updating `windows/latest.yml` in the
+release repository. No landing-page edit is required for each release, and the
+shared GitHub `/releases/latest` endpoint must not be used because macOS and Windows
+releases coexist in that repository.
+
+## Deployment
+
+Production must run the included Node server because the API and stable Windows
+download redirects are dynamic routes. Build and deploy the checked-in `Dockerfile`
+through the repository's normal container workflow; it starts `server.js` on port
+80. GitHub Pages can render the static HTML but is not a supported production
+target because it cannot execute the API or download routes.
 
 ## Waitlist Form
 
@@ -91,7 +81,7 @@ The waitlist form uses Formspree.io for backend-less form handling:
 - Pure HTML5/CSS3/JS (no frameworks)
 - System fonts only
 - Formspree for form handling
-- GitHub Pages for hosting
+- Node 22 container for production hosting
 
 ## Related Documentation
 

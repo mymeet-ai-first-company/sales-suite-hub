@@ -11,7 +11,7 @@
   <meta property="og:locale" content="ru_RU">
   <meta property="og:url" content="https://suite.mymeet.ai/desktop">
   <meta property="og:title" content="Mymeet.ai Desktop — запись встреч без бота">
-  <meta property="og:description" content="Записывайте системный звук и микрофон на Mac без участника-бота. Windows-версия выйдет через пару недель.">
+  <meta property="og:description" content="Записывайте системный звук и микрофон на macOS и Windows 10/11 без участника-бота.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
@@ -756,11 +756,6 @@
       font-size: 10px;
       font-weight: 500;
       white-space: nowrap;
-    }
-
-    .release-badge-soon {
-      color: var(--blue);
-      background: var(--blue-sea);
     }
 
     .release-badge span {
@@ -1617,9 +1612,9 @@
                 <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2 4.25A2.25 2.25 0 0 1 4.25 2h11.5A2.25 2.25 0 0 1 18 4.25v8.5A2.25 2.25 0 0 1 15.75 15h-3.69l.72 1.5h1.47a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5h1.47l.72-1.5H4.25A2.25 2.25 0 0 1 2 12.75v-8.5Zm1.5 0a.75.75 0 0 1 .75-.75h11.5a.75.75 0 0 1 .75.75v7.25h-13V4.25Z" clip-rule="evenodd"/></svg>
                 <span class="download-copy"><strong>Mac Intel</strong><span>Intel · v0.1.54</span></span>
               </a>
-              <a class="download-action" href="#release-status">
-                <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm.75-12.5a.75.75 0 0 0-1.5 0V10c0 .249.123.481.329.62l3 2a.75.75 0 0 0 .832-1.248l-2.661-1.774V5.5Z" clip-rule="evenodd"/></svg>
-                <span class="download-copy"><strong>Windows</strong><span>Через пару недель</span></span>
+              <a class="download-action" href="/downloads/windows">
+                <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.5 3.25 9 2.35v6.9H2.5v-6Zm7.5-1.04 7.5-1.04v8.08H10V2.21ZM2.5 10.25H9v6.9l-6.5-.9v-6Zm7.5 0h7.5v8.08L10 17.29v-7.04Z"/></svg>
+                <span class="download-copy"><strong>Windows</strong><span>Windows 10/11 · 64-bit</span></span>
               </a>
             </div>
           </div>
@@ -1641,9 +1636,9 @@
     <section class="section section-info" id="release-status" aria-labelledby="release-title">
       <div class="container release-layout">
         <div class="release-intro">
-          <div class="section-label">Релиз в августе</div>
-          <h2 id="release-title">Полные версии для Mac и Windows — в конце августа.</h2>
-          <p>Mac уже можно скачать и тестировать. Windows подключится через пару недель, а к концу месяца обе версии выйдут вместе.</p>
+          <div class="section-label">Доступно сейчас</div>
+          <h2 id="release-title">Mymeet.ai Desktop для macOS и Windows.</h2>
+          <p>Скачайте сборку для своей системы. Для Windows 10/11 по умолчанию предлагается 64-битный установщик.</p>
         </div>
 
         <div class="release-card-grid">
@@ -1663,10 +1658,14 @@
           <article class="release-card">
             <div class="release-card-head">
               <span class="release-platform"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.5 3.25 9 2.35v6.9H2.5v-6Zm7.5-1.04 7.5-1.04v8.08H10V2.21ZM2.5 10.25H9v6.9l-6.5-.9v-6Zm7.5 0h7.5v8.08L10 17.29v-7.04Z"/></svg></span>
-              <span class="release-badge release-badge-soon"><span></span>Через пару недель</span>
+              <span class="release-badge"><span></span>Доступен сейчас</span>
             </div>
-            <h3>Windows: готовится к публичному тесту</h3>
-            <p>Сборка для Windows 10/11 появится через пару недель. Она войдёт в общий релиз Desktop в конце августа.</p>
+            <h3>Windows 10/11: скачать установщик</h3>
+            <p>Выбирайте 64-bit для большинства современных компьютеров. 32-bit нужен только для устройств с 32-битной Windows 10.</p>
+            <div class="release-card-actions">
+              <a class="button button-primary" href="/downloads/windows/x64">Windows 64-bit</a>
+              <a class="button button-secondary" href="/downloads/windows/ia32">Windows 32-bit</a>
+            </div>
           </article>
         </div>
       </div>
@@ -1779,12 +1778,15 @@
             <div class="install-panel-head">
               <div>
                 <h3>Mymeet.ai для Windows 10/11</h3>
-                <p>Новая Windows-версия готовится к публичному тестированию и появится через пару недель. Ниже — предварительный путь установки.</p>
+                <p>Установщик доступен для Windows 10/11. Выбирайте 64-bit для большинства компьютеров; 32-bit — только для 32-битной Windows 10.</p>
               </div>
-              <a class="button button-secondary" href="#release-status">Windows — скоро</a>
+              <div class="release-card-actions">
+                <a class="button button-primary" href="/downloads/windows/x64">Скачать 64-bit</a>
+                <a class="button button-secondary" href="/downloads/windows/ia32">32-bit</a>
+              </div>
             </div>
             <div class="install-steps">
-              <div class="install-step"><strong>1. Запустить установщик</strong><p>Открыть Mymeet.ai.Setup.0.1.40.exe из папки Downloads.</p></div>
+              <div class="install-step"><strong>1. Запустить установщик</strong><p>Открыть скачанный Mymeet.ai Setup из папки Downloads.</p></div>
               <div class="install-step"><strong>2. Подтвердить SmartScreen</strong><p>Нажать More info, затем Run anyway. Это требуется только при первом запуске.</p></div>
               <div class="install-step"><strong>3. Войти в Mymeet.ai</strong><p>Приложение откроет браузер для авторизации и выбора workspace.</p></div>
             </div>
@@ -1861,7 +1863,7 @@
       <div class="container cta-row">
         <div class="cta-copy">
           <h2 id="cta-title">Сделайте первую запись без бота.</h2>
-          <p>Mac уже доступен для тестов. Windows появится через пару недель, полный релиз обеих версий — в конце августа.</p>
+          <p>Выберите сборку для macOS или Windows 10/11 и запишите первую встречу.</p>
         </div>
         <div class="cta-actions">
           <a class="button button-primary" href="#download">Скачать Desktop</a>
@@ -1873,7 +1875,7 @@
 
   <footer class="site-footer">
     <div class="container footer-row">
-      <div class="footer-meta"><span>macOS v0.1.54</span><span>Новая Windows-версия — через пару недель</span></div>
+      <div class="footer-meta"><span>macOS v0.1.54</span><span>Windows 10/11 · x64 и 32-bit</span></div>
       <div class="footer-links"><a href="https://github.com/MyMeetAI/mymeet-desktop-releases/releases">Все версии</a><a href="mailto:hello@mymeet.ai">Поддержка</a><a href="https://suite.mymeet.ai/">Suite</a></div>
     </div>
   </footer>
