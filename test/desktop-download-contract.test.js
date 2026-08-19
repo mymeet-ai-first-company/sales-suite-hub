@@ -39,15 +39,16 @@ test("never uses GitHub's cross-platform releases/latest shortcut", () => {
   assert.doesNotMatch(downloadImplementation, /\/releases\/latest/i);
 });
 
-test("keeps the existing macOS download paths intact", () => {
+test("uses the current stable macOS download paths everywhere", () => {
   assert.equal(
-    (desktop.match(/mac-v0\.1\.54\/Mymeet\.ai-0\.1\.54-arm64\.dmg/g) || []).length,
+    (desktop.match(/mac-v0\.1\.56\/Mymeet\.ai-0\.1\.56-arm64\.dmg/g) || []).length,
     2
   );
   assert.equal(
-    (desktop.match(/mac-v0\.1\.54\/Mymeet\.ai-0\.1\.54\.dmg/g) || []).length,
+    (desktop.match(/mac-v0\.1\.56\/Mymeet\.ai-0\.1\.56\.dmg/g) || []).length,
     2
   );
+  assert.doesNotMatch(desktop, /mac-v0\.1\.54|Mymeet\.ai-0\.1\.54|macOS v0\.1\.54/);
 });
 
 test("does not advertise the retired Windows 0.1.40 release on the Suite card", () => {
