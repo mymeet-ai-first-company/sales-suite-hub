@@ -48,6 +48,9 @@ test("uses the current stable macOS download paths everywhere", () => {
     (desktop.match(/mac-v0\.1\.58\/Mymeet\.ai-0\.1\.58\.dmg/g) || []).length,
     2
   );
+  assert.equal((desktop.match(/M1–M4 · v0\.1\.58/g) || []).length, 1);
+  assert.equal((desktop.match(/Intel · v0\.1\.58/g) || []).length, 1);
+  assert.equal((desktop.match(/macOS v0\.1\.58/g) || []).length, 1);
   assert.doesNotMatch(desktop, /mac-v0\.1\.56|Mymeet\.ai-0\.1\.56|macOS v0\.1\.56/);
 });
 
