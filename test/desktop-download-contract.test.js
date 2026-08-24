@@ -41,14 +41,17 @@ test("never uses GitHub's cross-platform releases/latest shortcut", () => {
 
 test("uses the current stable macOS download paths everywhere", () => {
   assert.equal(
-    (desktop.match(/mac-v0\.1\.56\/Mymeet\.ai-0\.1\.56-arm64\.dmg/g) || []).length,
+    (desktop.match(/mac-v0\.1\.58\/Mymeet\.ai-0\.1\.58-arm64\.dmg/g) || []).length,
     2
   );
   assert.equal(
-    (desktop.match(/mac-v0\.1\.56\/Mymeet\.ai-0\.1\.56\.dmg/g) || []).length,
+    (desktop.match(/mac-v0\.1\.58\/Mymeet\.ai-0\.1\.58\.dmg/g) || []).length,
     2
   );
-  assert.doesNotMatch(desktop, /mac-v0\.1\.54|Mymeet\.ai-0\.1\.54|macOS v0\.1\.54/);
+  assert.equal((desktop.match(/M1–M4 · v0\.1\.58/g) || []).length, 1);
+  assert.equal((desktop.match(/Intel · v0\.1\.58/g) || []).length, 1);
+  assert.equal((desktop.match(/macOS v0\.1\.58/g) || []).length, 1);
+  assert.doesNotMatch(desktop, /mac-v0\.1\.56|Mymeet\.ai-0\.1\.56|macOS v0\.1\.56/);
 });
 
 test("does not advertise the retired Windows 0.1.40 release on the Suite card", () => {
