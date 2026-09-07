@@ -27,6 +27,11 @@ test("provides tablet and mobile layouts without fixed desktop-only structure", 
   assert.match(styles, /\.download-actions,[\s\S]*grid-template-columns:\s*1fr/);
 });
 
+test("keeps the real app screenshot subordinate to the hero copy", () => {
+  assert.match(styles, /\.hero-stage\s*\{[\s\S]*?width:\s*min\(100%,\s*900px\)/);
+  assert.match(styles, /\.real-app-shot\s*\{[\s\S]*?width:\s*min\(100%,\s*760px\)/);
+});
+
 test("fully disables decorative motion when reduced motion is requested", () => {
   const reducedMotion = styles.match(
     /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{([\s\S]*)\}\s*$/
